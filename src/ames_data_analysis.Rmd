@@ -1,6 +1,8 @@
 ---
 title: "Predicting Housing Prices in Ames, Iowa"
 output: 
+  github_document:
+    fig_height: 4
   html_document: 
     fig_height: 4
     highlight: pygments
