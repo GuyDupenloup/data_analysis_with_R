@@ -1,45 +1,11 @@
 ---
-title: "Predicting Housing Prices in Ames, Iowa"
-output: 
-  github_document:
-    fig_height: 4
-  html_document: 
-    fig_height: 4
-    highlight: pygments
-    theme: spacelab
+title: "Ames Housing Data Analysis"
+output: github_document
 ---
 
-<style>
-title, h1, h2, h3 {
-  color : #0066ff;
-}
-h4 {
-  color : #0066ff;
-  font-size: bold;
-}
+*Copyright (c) 2025 Guy Dupenloup - Licensed under the MIT License (see LICENSE file for details)*
 
-table, td, th {  
-  border: 1px solid black;
-  vertical-align: center;
-}
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-th, td {
-  padding: 5px;
-}
-</style>
-
-<title>Ames Housing Data Analysis</title>
-
-<i>Copyright (c) 2025 Guy Dupenloup
-
-Licensed under the MIT License. See LICENSE file for details.</i>
-
-<h2>1. Introduction</h2>
+## 1. Introduction
 
 This project analyzes the Ames Housing Dataset, which is widely used in statistics and machine learning, with the goal of building a model to predict housing prices. The dataset comprises a training set, a test set, and a validation set.
 
@@ -53,63 +19,55 @@ Using the training set, We create a linear model and then use AIC and BIC to com
 
 using AIC/BIC criteria select a set of predictors and build several types of models. After choosing a model, we evaluate its overfit on the test set and tune it. Finally, we use the model to identify under- or over-valued properties in the validation set.
 
-<h2>2. What real estate agents say</h2>
+## 2. What real estate agents say
   
 As it turns out, all real estate agents basically say the same things. The real estate mantra is ‘location, location, location’, so let's start with location.
 
-<h4>Location</h4>
-<ul>
-<li><b>Zoning:</b> The choice of a type of area depends on the type of lifestyle you wish to live and of course, on your budget. Agricultural, industrial and commercial areas are cheaper than residential areas. Low density residential areas are generally the most expensive ones.</li>
-<br>
-<li><b>Ease of access to the property:</b> The road system to get to the property should be efficient and the traffic fluid enough. Commute times are an important consideration.</li>
-<br>
-<li><b>Proximity to shopping areas:</b> You will be spending a lot of time driving if you don't have nearby shopping areas. On the other hand, you may not want to be too close to busy shopping areas.</li>
-<br>
-<li><b>Safety and crime rates:</b> You certainly don’t want to live in an unsafe area, especially if you have children.</li>
-<br>
-<li><b>Schools:</b> In many families, education is everything. Schools drive home prices in some neighborhoods as many buyers are ready to pay a premium for good schools.</li>
-<br>
-<li><b>Neighborhood’s character:</b> A safe and quiet neighborhood, with clean and tidy yards and welcoming neighbors is the type of place where most families want to live.</li>
-<br>
-<li><b>Noise:</b> High levels of noise can have a negative impact on your quality of life, and even on your health. Houses alongside busy boulevards or close to highways or railroads are cheaper.</li>
-<br>
-<li><b>Access to public transportation:</b> Public transportation can save you money you would spend on a car. If you live in a residential area, having a train nearby that takes you to the city center is a real advantage.</li>
-<br>
-<li><b>Investment value:</b> If you are planning to sell the house after some time and make a profit, you want to look for development areas. If you are planning to rent the property, you want to look for a house that is attractive to tenants.</li>
-</ul>
+### Location
 
-<h4>Type of house</h4>
-<p>Single story houses are easier and safer to navigate as they have no stairs. A second floor makes for an easier separation of public and private spaces, but it also comes with costlier heating and cooling, and potentially higher noise levels if the house was not properly designed and constructed. A basement is something some people will be ready to pay for if they need a lot of storage room, have hobbies that require space, or have expansion projects.</p>
-<p>Town houses are an intermediate choice between an apartment and a detached house. They are usually cheaper than detached houses but are less spacious, have no land and provide less privacy.</p>
-<h4>Lot features</h4>
-<p>For most people, a bigger lot is better because it means more space.</p>
-<p>The lot shape is important to consider. The lot may be large but an irregular shape may waste space and create inconvenient or unwelcoming areas. A smaller lot with a regular shape may be better.</p>
-<p>The slope of the lot is also an important factor. Severe slopes often come with steep garage ramps and lack of flat land for outdoor activities. Having a deck can somewhat compensate for that.</p>
+**Zoning:** The choice of a type of area depends on the type of lifestyle you wish to live and of course, on your budget. Agricultural, industrial and commercial areas are cheaper than residential areas. Low density residential areas are generally the most expensive ones.
 
-<h4>Position of the house on the lot</h4>
-<p>A property feels more spacious if the house is at the center of the lot.</p>
-Being closer to the property lines may also mean being closer to your neighbors. They may be noisy people. Their windows may face yours meaning less privacy for you.</p>
+**Ease of access to the property:** The road system to get to the property should be efficient and the traffic fluid enough. Commute times are an important consideration.
 
-<h4>Age of the property</h4>
-<p>Older homes can have a character that appeals. But they have higher maintenance costs and may need more frequent repairs. The floorplan may be outdated. Closets may be too small and storage room insufficient. The garage may be inconveniently small and may not accommodate more than one car. Non conformity to building codes can be an issue.</p>
-<p>More recent houses tend to have greater square footage. They have more open floorplans, more spacious and inviting bathrooms, more storage room, and larger garages. They require less maintenance and are built to codes. They are also more energy efficient.</p>
+**Proximity to shopping areas:** You will be spending a lot of time driving if you don't have nearby shopping areas. On the other hand, you may not want to be too close to busy shopping areas.
 
-<h4>Construction quality and condition of the house</h4>
-<p>Quality of construction and condition of the house are of paramount importance for most buyers. You don’t want to buy a house that has major construction flaws that would be extremely costly or impossible to fix, for example an inadequate foundation. You also don't want to buy a house that will need repairs as soon as you move in, for example rebuilding the roof.</p>
+**Safety and crime rates:** You certainly don’t want to live in an unsafe area, especially if you have children.
+
+**Schools:** In many families, education is everything. Schools drive home prices in some neighborhoods as many buyers are ready to pay a premium for good schools.
+
+**Neighborhood’s character:** A safe and quiet neighborhood, with clean and tidy yards and welcoming neighbors is the type of place where most families want to live.
+
+**Noise:** High levels of noise can have a negative impact on your quality of life, and even on your health. Houses alongside busy boulevards or close to highways or railroads are cheaper.
+
+**Access to public transportation:** Public transportation can save you money you would spend on a car. If you live in a residential area, having a train nearby that takes you to the city center is a real advantage.
+
+**Investment value:** If you are planning to sell the house after some time and make a profit, you want to look for development areas. If you are planning to rent the property, you want to look for a house that is attractive to tenants.
+
+**Type of house**: Single story houses are easier and safer to navigate as they have no stairs. A second floor makes for an easier separation of public and private spaces, but it also comes with costlier heating and cooling, and potentially higher noise levels if the house was not properly designed and constructed. A basement is something some people will be ready to pay for if they need a lot of storage room, have hobbies that require space, or have expansion projects.
+
+Town houses are an intermediate choice between an apartment and a detached house. They are usually cheaper than detached houses but are less spacious, have no land and provide less privacy.
+
+**Lot features**: For most people, a bigger lot is better because it means more space. The lot shape is important to consider. The lot may be large but an irregular shape may waste space and create inconvenient or unwelcoming areas. A smaller lot with a regular shape may be better. The slope of the lot is also an important factor. Severe slopes often come with steep garage ramps and lack of flat land for outdoor activities. Having a deck can somewhat compensate for that.
+
+**Position of the house on the lot**: A property feels more spacious if the house is at the center of the lot.
+Being closer to the property lines may also mean being closer to your neighbors. They may be noisy people. Their windows may face yours meaning less privacy for you.
+
+**Age of the property**: Older homes can have a character that appeals. But they have higher maintenance costs and may need more frequent repairs. The floorplan may be outdated. Closets may be too small and storage room insufficient. The garage may be inconveniently small and may not accommodate more than one car. Non conformity to building codes can be an issue.
+
+More recent houses tend to have greater square footage. They have more open floorplans, more spacious and inviting bathrooms, more storage room, and larger garages. They require less maintenance and are built to codes. They are also more energy efficient.
+
+**Construction quality and condition of the house**: Quality of construction and condition of the house are of paramount importance for most buyers. You don’t want to buy a house that has major construction flaws that would be extremely costly or impossible to fix, for example an inadequate foundation. You also don't want to buy a house that will need repairs as soon as you move in, for example rebuilding the roof.
   
-<h4>Number of bedrooms</h4>
-<p>Most families of four want to have three bedrooms so that children don't have to share the same bedroom. Having an extra bedroom for guests may be desirable if you frequently have visitors who stay for some length of time. An extra bedroom may also serve as an office, a storage room or an exercise room.</p>
+**Number of bedrooms**: Most families of four want to have three bedrooms so that children don't have to share the same bedroom. Having an extra bedroom for guests may be desirable if you frequently have visitors who stay for some length of time. An extra bedroom may also serve as an office, a storage room or an exercise room.
 
-<h4>Number of bathrooms</h4>
-<p>Not having enough bathrooms is a showstopper for many buyers. If you have three bedrooms, you should have two bathrooms. People don't want to wait for their turn to take a shower in the morning. If you have four bedrooms or more, you may want to have more than two bathrooms. Bathrooms should be spacious and inviting. Cramped bathrooms can be an instant turnoff.</p>
+**Number of bathrooms**:
+Not having enough bathrooms is a showstopper for many buyers. If you have three bedrooms, you should have two bathrooms. People don't want to wait for their turn to take a shower in the morning. If you have four bedrooms or more, you may want to have more than two bathrooms. Bathrooms should be spacious and inviting. Cramped bathrooms can be an instant turnoff.
   
-<h4>Floorplan</h4>
-<p>Floorplans are often at the top of the list for buyers. They will assess how they will use the home and how it will fit the needs of the family. They may look for a flexible floorplan that will easily accommodate the needs of a growing family and then a shrinking family. The layout of the kitchen is particularly important for people who like to cook or have breakfast in the kitchen with their children.</p>
+**Floorplan**: Floorplans are often at the top of the list for buyers. They will assess how they will use the home and how it will fit the needs of the family. They may look for a flexible floorplan that will easily accommodate the needs of a growing family and then a shrinking family. The layout of the kitchen is particularly important for people who like to cook or have breakfast in the kitchen with their children.
   
-<h4>Garages</h4>
-Most families have 2 cars or more, so the garage must accommodate at least 2 cars. Spacious garages provide extra room for storage and appliances, and even for some hobbies if large enough. Garages attached to the house are preferred. Not having a garage is a showstopper for many buyers.
+**Garages**: Most families have 2 cars or more, so the garage must accommodate at least 2 cars. Spacious garages provide extra room for storage and appliances, and even for some hobbies if large enough. Garages attached to the house are preferred. Not having a garage is a showstopper for many buyers.
 
-<h2>3. Loading the training data</h2>
+## 3. Loading the training data
 
 We first load the packages we are going to need. Then, we load the training data and take a look at the variables.
 
@@ -128,11 +86,11 @@ str(ames_train)
 
 There are 81 variables in the data set.
 
-Variables Overall.Cond and Overall.Qual are categorical variables but they are coded as integers. We fix that before moving forward. 
+Variables *Overall.Cond* and *Overall.Qual* are categorical variables but they are coded as integers. We fix that before moving forward. 
 
-For the sake of consistency, we rename variable 'price' to 'Price' and variable 'area' to 'Area'.
+For the sake of consistency, we rename variable *price* to *Price* and variable *area* to *Area*.
 
-Most of the time the age of a house is more intuitive than the year it was built, so we create an age variable that we call Age. We calculate ages starting from 2010 as we don't have more recent data points in the data set.
+Most of the time the age of a house is more intuitive than the year it was built, so we create an age variable that we call *Age*. We calculate ages starting from 2010 as we don't have more recent data points in the data set.
 
 ```{r}
 ames_train$Overall.Qual  <- as.factor(ames_train$Overall.Qual)
@@ -144,7 +102,7 @@ ames_train <- mutate(ames_train, Age = 2010 - Year.Built)
 ```
 
 
-<h2>4. Properties sold under abnormal conditions</h2>
+## 4. Properties sold under abnormal conditions
 
 We remove from the data set all the properties that sold under abnormal conditions such as foreclosures or sale between family members. 
 
@@ -156,220 +114,155 @@ cat(sprintf("Data points in training set: %d\n", nrow(ames_train)))
 ```
 
 
-<h2>5.  Available variables and interpretation</h2>
+## 5. Available variables and interpretation
 
 We have 81 variables in total, not counting the Parcel ID that is not useful to our study.
 
 Let's try to categorize these variables based on real estate agents' home search criteria and recommendations.
 
-<table style="text-align: left;">
-  <tr>
-    <th>Property Features</th>
-    <th>Variables</th>
-  </tr><tr>
-    <td>Zoning (Agriculture, commercial, industrial, residential)
-    <td>MS.Zoning</td>
-  </tr><tr>
-  <td>Neighborhood</td>
-    <td>Neighborhood</td>
-  </tr><tr>
-    <td>Access to the property</td>
-    <td>Street, Alley, Paved.Drive</td>
-  </tr><tr>
-    <td>Proximity to roads, railroads, parks</td>
-    <td>Condition.1, Condition.2</td>
-  </tr><tr>
-    <td>Lot</td>
-    <td>Lot.Area, Lot.Shape, Lot.Config, Lot.Frontage</td>
-  </tr><tr>
-    <td>Land slope</td>
-    <td>Land.Slope, Land.Contour</td>
-  </tr><tr>
-    <td>Type of house</td>
-    <td>MS.SubClass, Bldg.Type, House.Style</td>
-  </tr><tr>
-    <td>Above grade (ground) living area</td>
-    <td>area</td>
-  </tr><tr>
-  <td>House age</td>
-    <td>Age, Year.Built, Year.Remodel.Add</td>
-  </tr><tr>
-    <td>Overall construction quality and condition</td>
-    <td>Overall.Qual, Overall.Cond</td>
-  </tr><tr>
-    <td>Exterior of the house</td>
-    <td>Exterior.1st, Exterior.2nd, Mas.Vnr.Type, Mas.Vnr.Area, Exter.Qual, Exter.Cond</td>
-  </tr><tr>
-    <td>Roof style and materials</td>
-    <td>Roof.Style, Roof.Matl</td>
-  </tr><tr>
-    <td>Foundation</td>
-    <td>Foundation</td>
-  </tr><tr>
-    <td>Utilities</td>
-    <td>Utilities</td>
-  </tr><tr>
-    <td>Floor areas</td>
-    <td>X1st.Flr.SF, X2nd.Flr.SF, Low.Qual.Fin.SF</td>
-  </tr><tr>
-  <td>Total number of rooms</td>
-    <td>TotRms.AbvGrd</td>
-  </tr><tr>
-    <td>Bedrooms</td>
-    <td>Bedroom.AbvGr</td>
-  </tr><tr>
-    <td>Bathrooms</td>
-    <td>Bsmt.Full.Bath, Bsmt.Half.Bath, Full.Bath, Half.Bath</td>
-  </tr><tr>
-    <td>Kitchen</td>
-    <td>Kitchen.AbvGr, Kitchen.Qual</td>
-  </tr><tr>
-  <td>Basement</td>
-    <td>Bsmt Qual, Bsmt.Cond, Bsmt.Exposure, BsmtFin.Type.1, BsmtFin.SF.1, BsmtFin.Type.2, BsmtFin.SF.2, Bsmt.Unf.SF, Total.Bsmt.SF</td>
-  </tr><tr>
-    <td>Garage</td>
-    <td>Garage.Type, Garage.Yr.Blt, Garage.Finish, Garage.Cars, Garage.Area, Garage.Qual, Garage.Cond</td>
-  </tr><tr>
-    <td>Home functionality</td>
-    <td>Functional</td>
-  </tr><tr>
-    <td>Heating system type, quality and condition</td>
-    <td>Heating, Heating.QC</td>
-  </tr><tr>
-    <td>Air conditioning</td>
-    <td>Central.Air</td>
-  </tr><tr>
-    <td>Electrical system</td>
-    <td>Electrical</td>
-  </tr><tr>
-  <td>Fireplaces</td>
-    <td>Fireplaces, Fireplace.Qu</td>
-  </tr><tr>
-    <td>Wood deck</td>
-    <td>Wood.Deck.SF</td>
-  </tr><tr>
-    <td>Porches</td>
-    <td>Open.Porch.SF, Enclosed.Porch, X3-Ssn.Porch, Screen.Porch</td>
-  </tr><tr>
-    <td>Pool</td>
-    <td>Pool.Area, Pool.QC</td>
-  </tr><tr>
-    <td>Fence</td>
-    <td>Fence</td>
-  </tr><tr>
-    <td>Miscellaneous</td>
-    <td>Misc.Feature, Misc.Val</td>
-  </tr><tr>
-    <td>Sale information</td>
-    <td>Price, Mo Sold, Yr.Sold, Sale.type, Sale.Condition</td>
-  </tr>
-</table>
+|  property features  |  Variables  |
+|---------------------|-------------|
+| Zoning (Agriculture, commercial, industrial, residential) | MS.Zoning |
+| Neighborhood | Neighborhood |
+| Access to the property | Alley, Paved.Drive |
+| Proximity to roads, railroads, parks | MS.Zoning | Condition.1, Condition.2 |
+| Lot | Lot.Area, Lot.Shape, Lot.Config, Lot.Frontage |
+| Land slope | Land.Slope, Land.Contour |
+| Lot | Lot.Area, Lot.Shape, Lot.Config, Lot.Frontage |
+| Type of house | MS.SubClass, Bldg.Type, House.Style |
+| Above grade (ground) living area | area |
+| House age | Age, Year.Built, Year.Remodel.Add |
+| Above grade (ground) living area | area |
+| Overall construction quality and condition | Overall.Qual, Overall.Cond |
+| Exterior of the house | Exterior.1st, Exterior.2nd, Mas.Vnr.Type, Mas.Vnr.Area, Exter.Qual, Exter.Cond |
+| Roof style and materials | Roof.Style, Roof.Matl |
+| Foundation | Foundation |
+| Floor areas | X1st.Flr.SF, X2nd.Flr.SF, Low.Qual.Fin.SF |
+| Total number of rooms | TotRms.AbvGrd |
+| Bedrooms | Bedroom.AbvGr |
+| Bathrooms | Bsmt.Full.Bath, Bsmt.Half.Bath, Full.Bath, Half.Bath |
+| Bedrooms | Bedroom.AbvGr |
+| Kitchen | Kitchen.AbvGr, Kitchen.Qual |
+| Bedrooms | Bedroom.AbvGr |
+| Bathrooms | Bsmt.Full.Bath, Bsmt.Half.Bath, Full.Bath, Half.Bath |
+| Basement | Bsmt Qual, Bsmt.Cond, Bsmt.Exposure, BsmtFin.Type.1, BsmtFin.SF.1, BsmtFin.Type.2, BsmtFin.SF.2, Bsmt.Unf.SF, Total.Bsmt.SF |
+| Garage | Garage.Type, Garage.Yr.Blt, Garage.Finish, Garage.Cars, Garage.Area, Garage.Qual, Garage.Cond |
+| Home functionality | Functional |
+| Heating system type, quality and condition | Heating, Heating.QC |
+| Air conditioning | Central.Air |
+| Fireplaces | Fireplaces, Fireplace.Qu |
+| Electrical system | Electrical |
+| Wood deck | Wood.Deck.SF |
+| Porches | Open.Porch.SF, Enclosed.Porch, X3-Ssn.Porch, Screen.Porch |
+| Pool | Pool.Area, Pool.QC |
+| Fence | Fence |
+| Miscellaneous | Misc.Feature, Misc.Val |
+| Sale information | Mo Sold, Yr.Sold, Sale.type, Sale.Condition |
+| Fence | Fence |
 
-<br>
-
-The variable 'area' in the dataset is not in the codebook, and the variable 'Gr Liv Area' in the codebook is not in the dataset. We assume that they are the same, providing the above grade (ground) living area.
+The variable *area* in the dataset is not in the codebook, and the variable *Gr Liv Area* in the codebook is not in the dataset. We assume that they are the same, providing the above grade (ground) living area.
 
 We note that the available variables closely match our compilation of home search criteria and recommendations from real estate agents.
 
-<h4>Neighborhoods</h4>
+#### Neighborhoods
 
 Besides their names, no information about neighborhoods is readily available in the data set.
 
 The name of a neighborhood may be enough information for real estate agents who are intimately familiar with the area, but how do we know about ease of access to the property, proximity to jobs, proximity to shopping areas, schools, crime rates, availability of public transportation, noise levels and investment value?
 
-MS.Zoning provides some information about the type of neighborhood each property is in. This variable can take the following values:
+*MS.Zoning* provides some information about the type of neighborhood each property is in. This variable can take the following values:
 
-<pre>
-<b>MS.Zoning (general zoning classification):</b>
-   A          Agriculture
-   C          Commercial
-   FV         Floating Village Residential
-   I          Industrial
-   RH         Residential High Density
-   RL         Residential Low Density
-   RM         Residential Medium Density
-</pre>
+| MS.Zoning |  Zoning classification  |
+|-----------|-------------------------|
+|  A        |    Agriculture  |
+|   C       |     Commercial  |
+|   FV      |     Floating Village Residential  |
+|   I       |     Industrial  |
+|   RH      |     Residential High Density  |
+|   RL      |     Residential Low Density  |
+|   RM      |     Residential Medium Density  |
+
 
 In the EDA part, we will use this variable to try to get some understanding about the type of area each neighborhood name implies.
 
+#### Type and style of dwelling
 
-<h4>Type and style of dwelling</h4>
-
-There are 3 variables that describe the type and style of dwelling: MS.SubClass, Bldg.Type and House.Style.
-
-These variables can take the following values:
-
-<pre>
-<b>MS.SubClass (type of dwelling):</b>
-   020        1-story 1946 & Newer all styles
-   030        1-story 1945 & Older
-   040        1-story w/finished attic all ages
-   045        1-1/2 story - Unfinished all ages
-   050        1-1/2 story finished all ages
-   060        2-story 1946 & Newer
-   070        2-story 1945 & Older
-   075        2-1/2 story - All ages
-   080        Split or multi-level
-   085        Split foyer
-   090        Duplex - All styles and ages
-   120        1-story PUD (Planned Unit Development) - 1946 & newer
-   150        1-1/2 story PUD - All ages
-   160        2-story PUD - 1946 & newer
-   180        PUD - Multilevel - Incl split lev/foyer
-   190        2 family conversion - All styles and ages
-
-<b>Bldg.Type (type of dwelling):</b>
-   1Fam       Single-family Detached
-   2FmCon     Two-family Conversion; originally built as one-family dwelling
-   Duplx      Duplex
-   TwnhsE     Townhouse End Unit
-   TwnhsI     Townhouse Inside Unit
-
-<b>House.Style (Style of dwelling):</b>
-   1Story     One story
-   1.5Fin     One and one-half story: 2nd level finished
-   1.5Unf     One and one-half story: 2nd level unfinished
-   2Story     Two story</li>
-   2.5Fin     Two and one-half story: 2nd level finished
-   2.5Unf     Two and one-half story: 2nd level unfinished
-   SFoyer     Split Foyer</li>
-   SLvl       Split Level</li>
-</pre>
-
-Bldg.Type and House.Style complement each other nicely, but MS.SubClass is somewhat confusing.
-
-MS.SubClass mixes information about stories, floorplan, style, age, finished/unfinished areas, and planned development. It significantly overlaps with Bldg.Type and House.Style and the information it adds on top of them is not always easy to understand.
-
-
-<h4>Proximity to some conditions</h4>
-
-Condition.1 and Condition.2 provide information that is local to the property.
+There are 3 variables that describe the type and style of dwelling: *MS.SubClass*, *Bldg.Type* and *House.Style*.
 
 These variables can take the following values:
 
-<pre>
-<b>Condition.1 and Condition.2 (Proximity to various conditions):</b>
-   Artery     Adjacent to arterial street
-   Feedr      Adjacent to feeder street
-   Norm       Normal
-   RRNn	      Within 200' of North-South Railroad
-   RRAn	      Adjacent to North-South Railroad
-   PosN	      Near positive off-site feature--park, greenbelt, etc.
-   PosA	      Adjacent to positive off-site feature
-   RRNe	      Within 200' of East-West Railroad
-   RRAe	      Adjacent to East-West Railroad
-</pre>
+| MS.SubClass | Type of dwelling |
+|-------------|------------------|
+|   020       | 1-story 1946 & Newer all styles |
+|   030       | 1-story 1945 & Older |
+|   040       | 1-story w/finished attic all ages |
+|   045       | 1-1/2 story - Unfinished all ages |
+|   050       | 1-1/2 story finished all ages |
+|   060       | 2-story 1946 & Newer |
+|   070       | 2-story 1945 & Older |
+|   075       | 2-1/2 story - All ages |
+|   080       | Split or multi-level |
+|   085       | Split foyer |
+|   090       | Duplex - All styles and ages |
+|   120       | 1-story PUD (Planned Unit Development) - 1946 & newer |
+|   150       | 1-1/2 story PUD - All ages |
+|   160       | 2-story PUD - 1946 & newer |
+|   180       | PUD - Multilevel - Incl split lev/foyer |
+|   190       | 2 family conversion - All styles and ages |
 
-Condition.1 and Condition.2 certainly provide valuable information. But the problem with these variables is that it is not obvious to understand what is good and what is bad. For example, is it good to be "Within 200' of East-West Railroad" because there is a train station nearby, or is it bad because noise levels are high?
+| Bldg.Type   | Type of dwelling |
+|-------------|------------------|
+|   1Fam      | Single-family Detached |
+|   2FmCon    | Two-family Conversion; originally built as one-family dwelling |
+|   Duplx     | Duplex |
+|   TwnhsE    | Townhouse End Unit |
+|   TwnhsI    | Townhouse Inside Unit |
 
-<h4>Basements</h4>
+
+| House.Style |  Style of dwelling |
+|-------------|--------------------|
+|   1Story    | One story |
+|   1.5Fin    | One and one-half story: 2nd level finished |
+|   1.5Unf    | One and one-half story: 2nd level unfinished |
+|   2Story    | Two story |
+|   2.5Fin    | Two and one-half story: 2nd level finished |
+|   2.5Unf    | Two and one-half story: 2nd level unfinished |
+|   SFoyer    | Split Foyer |
+|   SLvl      | Split Level |
+
+*Bldg.Type* and *House.Style* complement each other nicely, but *MS.SubClass* is somewhat confusing.
+
+*MS.SubClass* mixes information about stories, floorplan, style, age, finished/unfinished areas, and planned development. It significantly overlaps with *Bldg.Type* and *House.Style* and the information it adds on top of them is not always easy to understand.
+
+
+#### Proximity to some conditions
+
+*Condition.1* and *Condition.2* provide information that is local to the property.
+
+These variables can take the following values:
+
+|  Condition.1, Condition.2 | Proximity to various conditions |
+|---------------------------|---------------------------------|
+|   Artery | Adjacent to arterial street |
+|   Feedr  | Adjacent to feeder street |
+|   Norm   | Normal |
+|   RRNn	 | Within 200' of North-South Railroad |
+|   RRAn   | Adjacent to North-South Railroad |
+|   PosN	 | Near positive off-site feature--park, greenbelt, etc. |
+|   PosA	 | Adjacent to positive off-site feature |
+|   RRNe   | Within 200' of East-West Railroad |
+|   RRAe   | Adjacent to East-West Railroad |
+
+*Condition.1* and *Condition.2* certainly provide valuable information. But the problem with these variables is that it is not obvious to understand what is good and what is bad. For example, is it good to be "Within 200' of East-West Railroad" because there is a train station nearby, or is it bad because noise levels are high?
+
+#### Basements
 
 There is an impressive amount of information about basements: 9 variables in total.
 
 Basements must be a big deal in Ames. We will see if it gets confirmed when we develop our model.
 
 
-<h2>6. Undefined variable values</h2>
+## 6. Undefined variable values
 
 Undefined variable values cannot be used in models.
 
@@ -382,11 +275,11 @@ na <- data.frame(Variable=rownames(na), Missing=na$na_count)
 na
 ```
 
-Most undefined values correspond to features that are not present in some data points and can't be rated. For example, all the properties that have no garage have undefined values for variables Garage.Yr.Blt, Garage.Type, Garage.Finish and Garage.Qual. 
+Most undefined values correspond to features that are not present in some data points and can't be rated. For example, all the properties that have no garage have undefined values for variables *Garage.Yr.Blt*, *Garage.Type*, *Garage.Finish* and *Garage.Qual*. 
 
-Houses that have a garage and houses that don't are very different types of properties. If we drop all the data points that have undefined values for Garage.Yr.Blt, Garage.Type, Garage.Finish and Garage.Qual, we will be dropping all the properties that have no garage. This is not something we should do, obviously.
+Houses that have a garage and houses that don't are very different types of properties. If we drop all the data points that have undefined values for *Garage.Yr.Blt*, *Garage.Type*, *Garage.Finish* and *Garage.Qual*, we will be dropping all the properties that have no garage. This is not something we should do, obviously.
 
-A solution to this problem is to recode the undefined values of Garage.Type, Garage.Finish and Garage.Qual to a "NoGarage" category. We don't recode Garage.Yr.Blt because this variable is unlikely to be useful to our model.
+A solution to this problem is to recode the undefined values of *Garage.Type*, *Garage.Finish* and *Garage.Qual* to a *NoGarage* category. We don't recode *Garage.Yr.Blt* because this variable is unlikely to be useful to our model.
 
 ```{r}
 ames_train$Garage.Type <- as.factor(ifelse(is.na(ames_train$Garage.Type), "NoGarage", 
@@ -436,17 +329,17 @@ ames_train$Misc.Feature <- as.factor(ifelse(is.na(ames_train$Misc.Feature), "NoM
                                             as.character(ames_train$Misc.Feature)))
 ```
 
-The only variables that still have undefined values are Lot.Frontage, Mas.Vnr.Area and Garage.Yr.Built. These variables don't look like important predictors that we will need in our model, so we don't have to worry about their undefined values.
+The only variables that still have undefined values are *Lot.Frontage*, *Mas.Vnr.Area* and *Garage.Yr.Built*. These variables don't look like important predictors that we will need in our model, so we don't have to worry about their undefined values.
 
-<h2>7. Neigborhood types, prices and ages</h2>
+## 7. Neigborhood types, prices and ages
 
 In this section, we focus on neighborhoods and try to get some understanding of what they look like. The only information about neighborhoods that is readily available in the data set is their names.
 
-<h3>7.1 Zoning statistics</h3>
+### 7.1 Zoning statistics
 
-As mentioned in our discussion about variables, MS.Zoning provides some information about the type of neighborhood each property is located in.
+As mentioned in our discussion about variables, *MS.Zoning* provides some information about the type of neighborhood each property is located in.
 
-For each neighborhood, we count the number of properties in each of the MS.Zoning categories. We also calculate the price median and standard deviation. Then, we order the neighborhoods by decreasing price medians.
+For each neighborhood, we count the number of properties in each of the *MS.Zoning* categories. We also calculate the price median and standard deviation. Then, we order the neighborhoods by decreasing price medians.
 
 ```{r}
 neighborhoods <- ames_train %>% dplyr::select(Neighborhood, MS.Zoning)
@@ -501,7 +394,7 @@ The most expensive neighborhood is Northridge Heights, a Low Density Residential
 
 Not only Northridge Heights is the most expensive neighborhood but it also has the largest standard deviation making it the most heterogeneous neighborhood pricewise. 
 
-<h3>7.2 Neighborhood prices boxplots</h3>
+## 7.2 Neighborhood prices boxplots
 
 We draw side-by-side boxplots to visualize the price distributions in the different neighborhoods.
 
@@ -517,7 +410,7 @@ The boxplots confirm what we already found out when we computed the zoning and p
 
 Some of the boxplots should not be trusted because of the very small number of data points, in particular Green Hills, Bluestem, Greens and Northpark Villa. 
 
-<h3>7.3 Neighborhood ages statistics</h3>
+### 7.3 Neighborhood ages statistics
 
 Now that we have some understanding of the type of area each neighborhood name implies, we compute the same statistics for the ages of properties as we did for prices. Then, we order the neighborhoods by increasing age.
 
@@ -560,7 +453,7 @@ Meadow Village, the least expensive one, has an age median of 39. It is not so o
 
 The most heterogeneous neighborhoods age wise are Sawyer West and Edwards. These neighborhoods are also heterogeneous price wise.
 
-<h3>7.4 Neighborhood ages boxplots</h3>
+### 7.4 Neighborhood ages boxplots
 
 Next we draw side-by-side boxplots of neighborhood ages.
 
@@ -577,7 +470,7 @@ The boxplots show in a visual manner what we already found out when we computed 
 Newer properties seem to be more expensive than older ones as you would expect. We will see later on if we can confirm it when we draw a scattered plot of Price versus Age.
 
 
-<h2>8. Price variable distribution</h2>
+## 8. Price variable distribution
 
 Price, our response variable, takes values that range from 39300 to 615000. This is a wide range so we may wonder whether log transforming the variable could bring some improvements to our model.
 
@@ -609,14 +502,16 @@ ggplot(ames_train, aes(sample = log(Price))) + stat_qq() + stat_qq_line(color="r
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-The distribution of log transformed Price is fairly close to normal. A normal distribution is preferable to a skewed distribution, so we will log transform Price in our model.
+The distribution of log transformed *Price* is fairly close to normal. A normal distribution is preferable to a skewed distribution, so we will log transform Price in our model.
 
 There are 3 outliers at the lower tail. These are properties that sold for very low prices:
-<ul>
-<li>One sold for $39,300. This is the smallest house in the data set with only 334 sqft. It has only 1 bedroom and no garage. Overall quality is "Very Poor".</li>
-<li>Another one sold for $45,000. It is also a small house with only 612 sqft. It is 70 years old and has only 1 bedroom. The garage can accommodate only 1 car. Overall quality is "Poor" and overall condition is "Below Average".</li>
-<li>The third one sold for $40,000. It is larger than the two others with 1317 sqft but it is 90 years old. It has 3 bedrooms but only 1 bathroom. The garage can accomodate only 1 car. Overall quality and condition are both "Below Average".</li>
-</ul>
+
+- One sold for $39,300. This is the smallest house in the data set with only 334 sqft. It has only 1 bedroom and no garage. Overall quality is "Very Poor".
+
+- Another one sold for $45,000. It is also a small house with only 612 sqft. It is 70 years old and has only 1 bedroom. The garage can accommodate only 1 car. Overall quality is "Poor" and overall condition is "Below Average".
+
+- The third one sold for $40,000. It is larger than the two others with 1317 sqft but it is 90 years old. It has 3 bedrooms but only 1 bathroom. The garage can accomodate only 1 car. Overall quality and condition are both "Below Average".
+
 
 We get rid of these 3 outliers.
 
@@ -624,32 +519,32 @@ We get rid of these 3 outliers.
 ames_train <- ames_train %>% filter((Price > 45000))
 ```
 
-<h2>9. Correlations between explanatory variables</h2>
+## 9. Correlations between explanatory variables
 
-We suspect that explanatory variables Area, Lot.Area and Age may be correlated. We should avoid using collinear variables in our model, so we need to investigate it.
+We suspect that explanatory variables *Area*, *Lot.Area* and *Age* may be correlated. We should avoid using collinear variables in our model, so we need to investigate it.
 
-Let's draw a correlation plot of Area, Lot.Area and Age.
+Let's draw a correlation plot of *Area*, *Lot.Area* and *Age*.
 
 ```{r}
 correlations <- ames_train %>% dplyr::select(Area, Lot.Area, Age)
 ggpairs(correlations)
 ```
 
-The plot shows some correlation between Area and Lot.Area with a positive correlation coefficient of 0.23. House area and lot area increase and decrease together.
+The plot shows some correlation between *Area* and *Lot.Area* with a positive correlation coefficient of 0.23. House area and lot area increase and decrease together.
 
-There is also some significant correlation between Age and Area with a negative correlation coefficient of -0.244. Older houses tend to be smaller than newer ones.
+There is also some significant correlation between *Age* and *Area* with a negative correlation coefficient of -0.244. Older houses tend to be smaller than newer ones.*
 
-Interestingly, there is virtually no correlation between Lot.Area and Age.
+Interestingly, there is virtually no correlation between *Lot.Area* and *Age*.
 
 Although there are some significant correlations, none of the correlation coefficients are large enough to justify not using all these variables in our model.
 
-<h2>10. Scattered plots</h2>
+## 10. Scattered plots
 
-In this section, we create scattered plots of Price versus key numerical explanatory variables, namely Area, Lot.Area and Age. Our goal is to check that Price is linearly correlated to these variables, identify outliers and decide what to do with them, and determine whether some of these variables should be transformed.
+In this section, we create scattered plots of Price versus key numerical explanatory variables, namely *Area*, *Lot.Area* and *Age*. Our goal is to check that *Price* is linearly correlated to these variables, identify outliers and decide what to do with them, and determine whether some of these variables should be transformed.
 
-We use log transformed Price as we decided to do.
+We use log transformed *Price* as we decided to do.
 
-<h3>10.1 Price versus house area</h3>
+### 10.1 Price versus house area
   
 ```{r}
 ggplot(ames_train, aes(x = Area, y = log(Price))) + geom_point() +
@@ -658,11 +553,11 @@ ggplot(ames_train, aes(x = Area, y = log(Price))) + geom_point() +
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
-The plot shows an obvious positive linear correlation between Area and log(Price). Price and Area increase and decrease together.
+The plot shows an obvious positive linear correlation between *Area* and *log(Price)*. *Price* and *Area* increase and decrease together.
 
 There are no outliers.
 
-<h3>10.2 Price versus lot size</h3>
+### 10.2 Price versus lot size
   
 ```{r}
 ggplot(ames_train, aes(x = Lot.Area, y = log(Price))) + geom_point() +
@@ -671,7 +566,7 @@ ggplot(ames_train, aes(x = Lot.Area, y = log(Price))) + geom_point() +
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
-The plot suggests a positive linear correlation between Lot.Area and log(Price). But instead of being close to vertical, the fitting line is at an angle of about 25°.
+The plot suggests a positive linear correlation between *Lot.Area* and *log(Price*). But instead of being close to vertical, the fitting line is at an angle of about 25°.
 
 There are 2 outliers towards larger lot areas that are influential points and drive down the slope of the fitting line. These 2 outliers are properties that have extremely large lot sizes. The median lot area is 9,202 sqft and these two properties have lot areas of 215,245 sqft and 159,000 sqft. Although they have huge lot sizes, they did not sell for particularly high prices.
 
@@ -690,9 +585,9 @@ The plot looks better but the angle of the fitting line is still too low.
 
 There are 24 properties with lot sizes greater than 20,000 sqft that are influential points and drive down the slope of the fitting line. We could remove them but 24 is already a large number. Removing too many outliers from the training data may significantly increase the overfit of the model. 
 
-At this point, Lot.Area still varies from 1,470 to 56,600. This is a wide range so instead of dropping these outliers, we may be better off log transforming Lot.Area.  
+At this point, *Lot.Area* still varies from 1,470 to 56,600. This is a wide range so instead of dropping these outliers, we may be better off log transforming Lot.Area.  
 
-Let's draw a scattered plot using log transformed Lot.Area instead of Lot.Area.
+Let's draw a scattered plot using *log transformed Lot.Area* instead of *Lot.Area*.
 
 ```{r}
   ggplot(ames_train, aes(x = log(Lot.Area), y = log(Price))) + geom_point() +
@@ -701,12 +596,12 @@ Let's draw a scattered plot using log transformed Lot.Area instead of Lot.Area.
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-The plot shows a fair positive linear correlation between log(Lot.Area) and log(Price). There are no obvious outliers.
+The plot shows a fair positive linear correlation between *log(Lot.Area*) and log(*Price*). There are no obvious outliers.
 
-Therefore, we will use log transformed Lot.Area instead of Lot.Area in our model.
+Therefore, we will use *log transformed Lot.Area* instead of *Lot.Area* in our model.
 
 
-<h3>10.3 Price versus house age</h3>
+### 10.3 Price versus house age
   
 ```{r}
 ggplot(ames_train, aes(x = Age, y = log(Price))) + geom_point() +
@@ -715,41 +610,38 @@ ggplot(ames_train, aes(x = Age, y = log(Price))) + geom_point() +
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-The plot shows a fair linear correlation between Age and log(Price). Prices go down with age, which confirms what we suspected in the EDA part.
+The plot shows a fair linear correlation between *Age* and *log(Price)*. Prices go down with age, which confirms what we suspected in the EDA part.
 
 There are some outliers above the fitting line but they don't look like influential points, so we leave them there.
 
 It is interesting to note a surge in prices between 2000 and 2010. For some reason, many of the properties fetched high prices.
 
-<h2>11. Linear model development and assessment</h2>
+## 11. Linear model development and assessment
 
 Our approach to develop a model is as follows:
-<ol>
-<li>We select 10 predictors to create an initial linear model.</li>
-<li>We enhance the model with more variables to increase the adjusted-R^2.</li>
-<li>We run AIC and BIC variable selection on the enhanced model to make it more parsimonious.</li>
-<li>We select either the AIC-based model or the BIC-based model depending on the results obtained.</li>
-<li>We run model diagnostics to check that the chosen model meets the conditions for a linear regression model to be valid.</li>
-<li>We calculate the coverage probability and check that it is on target.</li>
-</ol>
+
+- We select 10 predictors to create an initial linear model.
+- We enhance the model with more variables to increase the adjusted-R^2.
+- We run AIC and BIC variable selection on the enhanced model to make it more parsimonious.
+- We select either the AIC-based model or the BIC-based model depending on the results obtained.
+- We run model diagnostics to check that the chosen model meets the conditions for a linear regression model to be valid.
+- We calculate the coverage probability and check that it is on target.
 
 
-<h3>11.1 Initial model</h3>
+### 11.1 Initial model
 
 We select the following 10 variables to create our first linear model, based on our compilation of home search criteria and recommendations from real estate agents and on our discussion of available variables in the EDA part:
 
-<ul>
-<li><b>Area</b> for the size of the house.
-<li><b>Lot.Area</b> for the size of the lot.
-<li><b>Age</b> for the age of the house.
-<li><b>Neighborhood</b> for the location of the property.
-<li><b>Bldg.Type</b> for the type of building (detached single-family, townhouse, etc). We avoid using MS.SubClass. As we pointed out earlier, this variable is somewhat confusing.</li>
-<li><b>Bedroom.AbvGr</b> for the number of bedrooms. We don't add the number of bathrooms because it is generally proportionate to the number of bedrooms. Older houses tend to have lower bathroom/bedroom ratios than more recent houses but this should be captured by Age.</li>
-<li><b>Garage.Cars</b> for the number of cars the garage can accommodate. Most families have at least 2 cars.</li>
-<li><b>Overall.Qual</b> for the overall quality of the house.</li>
-<li><b>Overall.Cond</b> for the overall condition of the house.</li>
-<li><b>Total.Bsmt.SF</b> for the total area of the basement. A basement adds area to floors and may be used for expansion projects.</li>
-</ul>
+- *Area* for the size of the house.
+- *Lot.Area* for the size of the lot.
+- *Age* for the age of the house.
+- *Neighborhood* for the location of the property.
+- *Bldg.Type* for the type of building (detached single-family, townhouse, etc). We avoid using MS.SubClass. As we pointed out earlier, this variable is somewhat confusing.
+- *Bedroom.AbvGr* for the number of bedrooms. We don't add the number of bathrooms because it is generally proportionate to the number of bedrooms. Older houses tend to have lower bathroom/bedroom ratios than more recent houses but this should be captured by Age.
+- *Garage.Cars* for the number of cars the garage can accommodate. Most families have at least 2 cars.
+- *Overall.Qual* for the overall quality of the house.
+- *Overall.Cond* for the overall condition of the house.
+- *Total.Bsmt.SF* for the total area of the basement. A basement adds area to floors and may be used for expansion projects.
 
 
 Using the training data, we create an initial model with these 10 predictors.
@@ -775,21 +667,19 @@ Our first model has an adjusted-R^2 of 0.9332.
 
 p-values show that most of the main predictors are significant; some categorical levels (e.g., certain neighborhoods) are not significant individually, but they contribute to the overall model.
 
-<h3>11.2 Enhanced model</h3>
+### 11.2 Enhanced model
 
 We now add the following variables to the initial model to incorporate more information about the property features we selected:
-<ul>
-<li><b>House.Style</b> for more information about the type of building.
-<li><b>Garage.Type</b>, <b>Garage.Area</b>, <b>Garage.Qual</b> and <b>Garage.Cond</b> for more information about the garage.</li>
-<li><b>Exter.Qual</b> and <b>Exter.Cond</b> for more information about the quality and condition of the house.</li>
-<li><b>BsmtFin.SF.1</b>, <b>BsmtFin.SF.2</b>, <b>Bsmt.Qual</b>, <b>Bsmt.Cond</b>, <b>Bsmt.Full.Bath</b> and <b>Bsmt.Half.Bath</b> for more information about the basement. This includes the square footage of finished areas, the quality and condition, and the absence/presence of shower and bathroom.</li>
-</ul>
+
+- *House.Style* for more information about the type of building.
+- *Garage.Type*, *Garage.Area*, *Garage.Qual* and *Garage.Cond* for more information about the garage.
+- *Exter.Qual* and *Exter.Cond* for more information about the quality and condition of the house.
+- *BsmtFin.SF.1*, *BsmtFin.SF.2*, *Bsmt.Qual*, *Bsmt.Cond*, *Bsmt.Full.Bath* and *Bsmt.Half.Bath* for more information about the basement. This includes the square footage of finished areas, the quality and condition, and the absence/presence of shower and bathroom.
 
 Ames gets warm in summer time and cold in winter time, so we also add information about the heating system and air conditioning:
-<ul>
-<li><b>Heating</b> and <b>Heating.QC</b> for the type and quality of the heating system.</li>
-<li><b>Central.Air</b> for the absence/presence of air conditioning.</li>
-</ul>
+
+- *Heating* and *Heating.QC* for the type and quality of the heating system.
+- *Central.Air* for the absence/presence of air conditioning.
 
 We now have a total of 25 predictors.
 
@@ -830,7 +720,7 @@ The enhanced model has an R^2 of 0.9519 and an adjusted-R^2 of 0.9458. p-values 
 
 While R^2 is high, the adjusted-R^2 is noticeably lower, reflecting the penalty for the model’s many predictors.
 
-<h3>11.3 AIC predictor selection</h3>
+### 11.3 AIC predictor selection
 
 We run AIC variable selection on the enhanced model. We don't specify a stepwise search direction, the default being both "forward" and "backward".
   
@@ -844,7 +734,7 @@ The AIC-based model (AIC model, for short) has 16 predictors.
 The adjusted-R^2 is 0.946. The enhanced model had an adjusted-R^2 of 0.9458, so this is approximately the same value.
 
 
-<h3>11.4 BIC predictor selection</h3>
+### 11.4 BIC predictor selection
 
 We run BIC variable selection on the enhanced model. Like for AIC reduction, we don't specify a stepwise search direction.
   
@@ -858,81 +748,55 @@ The AIC model that we created previously had an adjusted-R^2 is 0.946. The BIC m
 With its more stringent penalty on model complexity, the BIC model selected a more parsimonious set of predictors (12 compared to the AIC model's 16). While its adjusted R^2 is slightly lower, this is the expected trade-off for a simpler model. The choice between the two depends on whether the goal is to maximize predictive power (favoring the AIC model) or to favor a simpler, more interpretable model (favoring the BIC model).
 
 
-
-<h3>11.5 Model selection</h3>
+### 11.5 Model selection
 
 The table below summarizes the results we obtained with the different models we created.
 
 
-<table style="text-align:center;">
-  <tr>
-    <th>Model</th>
-    <th>Predictors</th>
-    <th>R^2</th>
-    <th>Adjusted R^2</th>
-  </tr><tr>
-    <td>model.1 (initial model)</td>
-    <td>10</td>
-    <td>0.9374</td>
-    <td>0.9332</td>
-  </tr><tr>
-    <td>model.2 (enhanced model)</td>
-    <td>25</td>
-    <td>0.9519</td>
-    <td>0.9458</td>
-  </tr><tr>
-    <td>model.3 (AIC)</td>
-    <td>16</td>
-    <td>0.9503</td>
-    <td>0.946</td>
-  </tr><tr>
-    <td>model.4 (BIC)</td>
-    <td>12</td>
-    <td>0.9473</td>
-    <td>0.9437</td>
-  </tr>
-</table>
-
-<br>
+| Model                    | Predictors | R^2 | Adjusted R^2 |
+|--------------------------|------------|-----|--------------|
+| model.1 (initial model)  | 10  | 0.9374 | 0.9332 | 
+| model.2 (enhanced model) | 25  | 0.9519 | 0.9458 | 
+| model.3 (AIC)            | 16  | 0.9503 | 0.946  | 
+| model.4 (BIC)            | 12  | 0.9473 | 0.9437 | 
 
 The BIC model has an adjusted-R^2 that is slightly lower than the AIC model but it is more parsimonious. Therefore, we decide to focus on the BIC model for the rest of the project.
 
-<h3>11.6 Model interpretation</h3>
+### 11.6 Model interpretation
 
 The BIC model has the following predictors:
 
-<pre>
-    Area
-    log(Lot.Area)
-    Age
-    Neighborhood  
-    Bldg.Type
-    Garage.Cars
-    Overall.Qual
-    Overall.Cond 
-    Total.Bsmt.SF
-    BsmtFin.SF.1
-    Bsmt.Full.Bath
-    Central.Air
-</pre>
+|     Variable     |
+|------------------|
+|    Area  |
+|    log(Lot.Area) |
+|    Age |
+|    Neighborhood |
+|    Bldg.Type |
+|    Garage.Cars |
+|    Overall.Qual |
+|    Overall.Cond |
+|    Total.Bsmt.SF |
+|    BsmtFin.SF.1 |
+|    Bsmt.Full.Bath |
+|    Central.Air |
 
-Out of the 10 predictors we included in the initial model, 9 are still present in the BIC model. Bedroom.AbvGr is the only one that got removed. This makes sense because type of building and house area probably provide enough information to infer the number of bedrooms.
+Out of the 10 predictors we included in the initial model, 9 are still present in the BIC model. *Bedroom.AbvGr* is the only one that got removed. This makes sense because type of building and house area probably provide enough information to infer the number of bedrooms.
 
-Basements are definitely important. Initially, we only included Total.Bsmt.SF which is the total basement area. After enhancing the model and running BIC reduction, we also have BsmtFin.SF1 which is the square footage of the finished basement area. Interestingly, we also have Bsmt.Full.Bath which indicates the absence/presence of a bathroom in the basement.
+Basements are definitely important. Initially, we only included *Total.Bsmt.SF* which is the total basement area. After enhancing the model and running BIC reduction, we also have *BsmtFin.SF1* which is the square footage of the finished basement area. Interestingly, we also have *Bsmt.Full.Bath* which indicates the absence/presence of a bathroom in the basement.
 
-We included in the enhanced model the two variables that describe the type and quality of the heating system, Heating and Heating.QC. They did not make it to the BIC model. Type of building and age (more recent houses have more efficient heating systems than older ones) are probably enough information to determine the type of heating system.
+We included in the enhanced model the two variables that describe the type and quality of the heating system, *Heating* and *Heating.QC*. They did not make it to the BIC model. Type of building and age (more recent houses have more efficient heating systems than older ones) are probably enough information to determine the type of heating system.
 
-It is not surprising that Central.Air made it to the BIC model. Out of the 829 houses that we now have in the training data, only 42 don't have air conditioning. Not having it is a major disadvantage.
+It is not surprising that *Central.Air* made it to the BIC model. Out of the 829 houses that we now have in the training data, only 42 don't have air conditioning. Not having it is a major disadvantage.
 
-<h3>11.7 Model diagnostics</h3>
+### 11.7 Model diagnostics
 
-We already verified that log(Price) is linearly correlated to Area, log(Lot.Area) and Age.
+We already verified that log(*Price*) is linearly correlated to *Area*, log(*Lot.Area*) and *Age*.
 
 We also have to check that the BIC model meets the following conditions for a linear regression model to be valid:
-<ol>
-<li>Residuals must be normally distributed.</li>
-<li>Residuals must have constant variability.</li>
-</ol>
+
+- Residuals must be normally distributed.
+- Residuals must have constant variability.
 
 We draw a Q-Q plot of the residuals to check the first condition.
 
@@ -959,7 +823,7 @@ Residuals are randomly distributed in a band centered at 0 (no fan shape), so th
 
 The outliers we saw on the Q-Q plot stand out on this plot as well.
 
-<h3>11.8 Coverage probability</h3>
+### 11.8 Coverage probability
 
 We calculate the coverage probability of the BIC model to assess how well it reflects uncertainty. If assumptions are met, a 95% prediction interval for Price should include the true value of Price roughly 95% of the time.
 
@@ -972,11 +836,11 @@ cat(sprintf("model.4 (BIC) coverage probability: %.3f\n", covprob))
 
 The coverage probability of the model is on target.
 
-<h2>12. Test set overfit and model tuning</h2>
+## 12. Test set overfit and model tuning
   
 We now use the test set to test our model on some data that has not been seen yet. Overfitting of the training set is our concern.
 
-<h3>12.1 Data set preparation</h3>
+### 12.1 Data set preparation
   
 Before using the test set, we first have to apply to it the same transformations as we did to the training set.
 
@@ -1036,7 +900,7 @@ ames_test$Misc.Feature <- as.factor(ifelse(is.na(ames_test$Misc.Feature), "NoMis
                                             as.character(ames_test$Misc.Feature)))
 ```
 
-Variable Neighborhood takes the value "Landmrk" in the test set. This value was not present in the training set, so we have to remove it from the test set otherwise we will get prediction errors.
+Variable *Neighborhood* takes the value "Landmrk" in the test set. This value was not present in the training set, so we have to remove it from the test set otherwise we will get prediction errors.
 
 The same thing happens with variable Overall.Qual that takes the value 1 in the test set, a value that was not present in the training set.
 
@@ -1045,7 +909,7 @@ ames_test <- ames_test %>% filter((Neighborhood != "Landmrk") & (Overall.Qual !=
 cat(sprintf("Data points in test set: %d\n", nrow(ames_test)))
 ```
 
-<h3>12.2 Overfit</h3>
+### 12.2 Overfit
 
 To evaluate the overfit of our model, we compute and compare the RMSE on the training set and the RMSE on the test set.
 
@@ -1070,13 +934,13 @@ The model's training RMSE is 15693, while its test RMSE is 16871.
 The fact that the test RMSE is only slightly higher than the training RMSE indicates that the model is generalizing well and does not significantly overfits the training data. This small gap suggests the model is robust and can be used to make reliable predictions on new data.
 
 
-<h3>12.3 Model tuning to reduce overfit</h3>
+### 12.3 Model tuning to reduce overfit
 
 Let's try to tune the BIC model to reduce the overfit without significantly degrading adjusted-R^2. 
 
 Neighborhood names implicitly convey a lot of highly specific location information, so we suspect that using Neighborhood in the model may be responsible for some of the overfit. In the EDA section, we used MS.Zoning to get some understanding of the type of neighborhood each name implies. If we replace Neighborhood by MS.Zoning in the model and add Condition.1 on top of it, we will get something that is not as location specific as the neighborhood names but that still conveys some location specific information. We should then have a model that generalizes better.
 
-In order to try this idea, we write a model that uses the same predictors as the BIC model but we remove Neighborhood and add MS.Zoning and Condition.1.
+In order to try this idea, we write a model that uses the same predictors as the BIC model but we remove *Neighborhood* and add *MS.Zoning* and *Condition.1*.
 
 ```{r}
 model.5 <- lm(data = ames_train,
@@ -1121,11 +985,11 @@ The tuned model has a training RMSE of 17282 and a test RMSE of 18159, indicatin
 The adjusted-R^2 went down from 0.9437 to 0.9351. There is some degradation but this was expected.
 
 
-<h2>13. Validation set, overvalued/undervalued properties</h2>
+## 13. Validation set, overvalued/undervalued properties
 
 The last step is to use our tuned model on the validation set. We will compute the RMSE values, and identify undervalued and overvalued properties.
 
-<h3>13.1 Data set preparation</h3>
+### 13.1 Data set preparation
 
 First, we have to apply to the evaluation set the same transformations as we did to the training set and test set.
 
@@ -1194,7 +1058,8 @@ ames_validation <- ames_validation %>%
 cat(sprintf("Data points in validation set: %d\n", nrow(ames_validation)))
 ```
 
-<h3>13.2 RMSE and overfit</h3>
+
+### 13.2 RMSE and overfit
 
 We calculate the RMSE of the model on the validation set to see how it compares to the training set and test set.
 
@@ -1211,7 +1076,7 @@ cat(sprintf("model.5 (BIC tuned to reduce overfit):\n"),
 
 The RMSE of the model on the test set was 18159. On the validation set, the RMSE is 18164. Results are almost identical, which shows again that the model generalizes well.
 
-<h3>13.3 Overvalued/undervalued properties</h3>
+### 13.3 Overvalued/undervalued properties
 
 One way of spotting overvalued/undervalued properties is to draw a scattered plot of actual prices versus prices predicted by our model and add a 45° line to the plot.
 
@@ -1233,72 +1098,24 @@ An example of overvalued property is #641. The predicted price is $350,719 and t
 An example of undervalued property is #168. The predicted price is $364,895 and the actual price is $275,000 (25% lower).
 
 
-<h2>14. Conclusion</h2>
+## 14. Conclusion
 
 The table below summarizes the statistics we collected for all the models we created.
 
 
 <table style="text-align:center;">
   <tr>
-    <th>Model</th>
-    <th>Predictors</th>
-    <th>R^2</th>
-    <th>Adjusted R^2</th>
-    <th>Training set RMSE</th>
-    <th>Test set RMSE</th>
-    <th>Validation set RMSE</th>
-    <th>Coverage probability</th>
-  </tr><tr>
-    <td>model.1 (initial)</td>
-    <td>10</td>
-    <td>0.9374</td>
-    <td>0.9332</td>
-    <td>17762</td>
-    <td>18967</td>
-    <td>18681</td>
-    <td>0.956</td>
-  </tr><tr>
-    <td>model.2 (enhanced)</td>
-    <td>25</td>
-    <td>0.9519</td>
-    <td>0.9458</td>
-    <td>14920</td>
-    <td>16999</td>
-    <td>17111</td>
-    <td>0.965</td>
-  </tr><tr>
-    <td>model.3 (AIC)</td>
-    <td>16</td>
-    <td>0.9503</td>
-    <td>0.946</td>
-    <td>15120</td>
-    <td>16925</td>
-    <td>17521</td>
-    <td>0.958</td>
-  </tr><tr>
-    <td>model.4 (BIC)</td>
-    <td>12</td>
-    <td>0.9473</td>
-    <td>0.9437</td>
-    <td>15693</td>
-    <td>16871</td>
-    <td>17840</td>
-    <td>0.957</td>
-  </tr><tr>
-    <td>model.5 (tuned BIC)</td>
-    <td>13</td>
-    <td>0.9384</td>
-    <td>0.9351</td>
-    <td>17282</td>
-    <td>18159</td>
-    <td>18164</td>
-    <td>0.953</td>
-  </tr>
-</table>
 
-<br>
+| Model | Predictors | R^2 | Adjusted R^2 | Training set RMSE | Test set RMSE | Validation set RMSE | Coverage probability |
+|-------|-------------|----|--------|--------|-------|-------|-------|-------|
+| model.1             | 10 | 0.9374 | 0.9332 | 17762 | 18967 | 18681 | 0.956 |
+| model.2 (enhanced)  | 25 | 0.9519 | 0.9458 | 14920 | 16999 | 17111 | 0.965 |
+| model.3 (AIC)       | 16 | 0.9503 | 0.946  | 15120 | 16925 | 17521 | 0.958 |
+| model.4 (BIC)       | 12 | 0.9473 | 0.9437 | 15693 | 16871 | 17840 | 0.957 |
+| model.5 (tuned BIC) | 13 | 0.9384 | 0.9351 | 17282 | 18159 | 18164 | 0.953 |
 
-<h4>Model Comparison:</h4>
+
+#### Model Comparison:
 
 - **Predictive Power**: The AIC model (model.3) and the enhanced model (model.2) have the highest adjusted R-squared values, indicating they explain the most variance in the data. However, the enhanced model's high number of predictors (25) makes it complex and prone to overfitting. The AIC model achieves a nearly identical adjusted R-squared (0.946 vs. 0.9458) with significantly fewer predictors (16), making it a more parsimonious and robust choice.
 
