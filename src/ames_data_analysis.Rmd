@@ -35,6 +35,10 @@ th, td {
 
 <title>Ames Housing Data Analysis</title>
 
+<i>Copyright (c) 2025 Guy Dupenloup
+
+Licensed under the MIT License. See LICENSE file for details.</i>
+
 <h2>1. Introduction</h2>
 
 This project analyzes the Ames Housing Dataset, which is widely used in statistics and machine learning, with the goal of building a model to predict housing prices. The dataset comprises a training set, a test set, and a validation set.
