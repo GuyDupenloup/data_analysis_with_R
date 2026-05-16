@@ -1,4 +1,3 @@
-
 # Ames Housing Data Analysis
 
 *Copyright (c) 2025 Guy Dupenloup - Licensed under the MIT License (see
@@ -21,20 +20,16 @@ variables, their correlations, and the needs for creating new variables
 and variable transformations.
 
 Using the training set, We create a linear model and then use AIC and
-BIC to compare different sets of predictors.
-
-using AIC/BIC criteria select a set of predictors and build several
-types of models. After choosing a model, we evaluate its overfit on the
-test set and tune it. Finally, we use the model to identify under- or
-over-valued properties in the validation set.
+BIC to compare different sets of predictors. After choosing a model, we
+evaluate its overfit on the test set and tune it. Finally, we use the
+model to identify under- or over-valued properties in the validation
+set.
 
 ## 2. What real estate agents say
 
 As it turns out, all real estate agents basically say the same things.
-The real estate mantra is ‘location, location, location’, so let’s start
+The real estate mantra is “location, location, location”, so let’s start
 with location.
-
-### Location
 
 **Zoning:** The choice of a type of area depends on the type of
 lifestyle you wish to live and of course, on your budget. Agricultural,
@@ -281,7 +276,9 @@ cat(sprintf("Data points in training set: %d\n", nrow(ames_train)))
 
     ## Data points in training set: 834
 
-## 5. Available variables and interpretation
+## 5. Variables and interpretation
+
+### 5.1 Available variables
 
 We have 81 variables in total, not counting the Parcel ID that is not
 useful to our study.
@@ -336,7 +333,7 @@ that they are the same, providing the above grade (ground) living area.
 We note that the available variables closely match our compilation of
 home search criteria and recommendations from real estate agents.
 
-#### Neighborhoods
+### 5.2 Neighborhoods
 
 Besides their names, no information about neighborhoods is readily
 available in the data set.
@@ -363,7 +360,7 @@ each property is in. This variable can take the following values:
 In the EDA part, we will use this variable to try to get some
 understanding about the type of area each neighborhood name implies.
 
-#### Type and style of dwelling
+### 5.3 Type and style of dwelling
 
 There are 3 variables that describe the type and style of dwelling:
 *MS.SubClass*, *Bldg.Type* and *House.Style*.
@@ -416,7 +413,7 @@ finished/unfinished areas, and planned development. It significantly
 overlaps with *Bldg.Type* and *House.Style* and the information it adds
 on top of them is not always easy to understand.
 
-#### Proximity to some conditions
+### 5.4 Proximity to some conditions
 
 *Condition.1* and *Condition.2* provide information that is local to the
 property.
@@ -441,7 +438,7 @@ understand what is good and what is bad. For example, is it good to be
 “Within 200’ of East-West Railroad” because there is a train station
 nearby, or is it bad because noise levels are high?
 
-#### Basements
+### 5.5 Basements
 
 There is an impressive amount of information about basements: 9
 variables in total.
@@ -2381,7 +2378,7 @@ ggplot(ames_train, aes(x = Neighborhood, y = Price)) +
     coord_flip()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 The boxplots confirm what we already found out when we computed the
 zoning and price statistics of each neighborhood.
@@ -4117,7 +4114,7 @@ ggplot(ames_train, aes(x = Neighborhood, y = Age)) +
     coord_flip()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 The boxplots show in a visual manner what we already found out when we
 computed the age statistics.
@@ -4141,7 +4138,7 @@ ggplot(ames_train, aes(x = Price)) +
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 The distribution of Price is right skewed with a long tail towards
 higher prices.
@@ -4156,7 +4153,7 @@ ggplot(ames_train, aes(x = log(Price))) +
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 The distribution of log transformed Price is much more symmetrical.
 Let’s draw a Q-Q plot to check how close it is to a normal distribution.
@@ -4167,7 +4164,7 @@ ggplot(ames_train, aes(sample = log(Price))) + stat_qq() + stat_qq_line(color="r
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 The distribution of log transformed *Price* is fairly close to normal. A
 normal distribution is preferable to a skewed distribution, so we will
@@ -4209,7 +4206,7 @@ correlations <- ames_train %>% dplyr::select(Area, Lot.Area, Age)
 ggpairs(correlations)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 The plot shows some correlation between *Area* and *Lot.Area* with a
 positive correlation coefficient of 0.23. House area and lot area
@@ -4251,7 +4248,7 @@ ggplot(ames_train, aes(x = Area, y = log(Price))) + geom_point() +
     ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
     ## generated.
 
-![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 The plot shows an obvious positive linear correlation between *Area* and
 *log(Price)*. *Price* and *Area* increase and decrease together.
@@ -4267,7 +4264,7 @@ ggplot(ames_train, aes(x = Lot.Area, y = log(Price))) + geom_point() +
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 The plot suggests a positive linear correlation between *Lot.Area* and
 *log(Price*). But instead of being close to vertical, the fitting line
@@ -4291,7 +4288,7 @@ ggplot(ames_train, aes(x = Lot.Area, y = log(Price))) + geom_point() +
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 The plot looks better but the angle of the fitting line is still too
 low.
@@ -4316,7 +4313,7 @@ Let’s draw a scattered plot using *log transformed Lot.Area* instead of
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 The plot shows a fair positive linear correlation between
 *log(Lot.Area*) and log(*Price*). There are no obvious outliers.
@@ -4333,7 +4330,7 @@ ggplot(ames_train, aes(x = Age, y = log(Price))) + geom_point() +
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 The plot shows a fair linear correlation between *Age* and *log(Price)*.
 Prices go down with age, which confirms what we suspected in the EDA
@@ -4939,7 +4936,7 @@ ggplot(residuals, aes(sample = resid)) + stat_qq() + stat_qq_line(color="red") +
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 The normal distribution of residuals condition is fairly met. There are
 some outliers at the lower and upper tails.
@@ -4954,7 +4951,7 @@ ggplot(residuals, aes(x = fitted, y = resid)) + geom_point() +
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
 Residuals are randomly distributed in a band centered at 0 (no fan
 shape), so the constant variability of residuals condition is met.
@@ -5342,7 +5339,7 @@ ggplot(actual_vs_predicted, aes(x = predicted, y = actual)) + geom_point() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 An example of overvalued property is \#641. The predicted price is
 \$350,719 and the actual price is \$441,929 (20% higher).
@@ -5352,12 +5349,8 @@ An example of undervalued property is \#168. The predicted price is
 
 ## 14. Conclusion
 
-The table below summarizes the statistics we collected for all the
+The table below summarizes the statistics we collected for the five
 models we created.
-
-<table style="text-align:center;">
-
-<tr>
 
 | Model | Predictors | R^2 | Adjusted R^2 | Training set RMSE | Test set RMSE | Validation set RMSE | Coverage probability |  |
 |----|----|----|----|----|----|----|----|----|
@@ -5367,7 +5360,7 @@ models we created.
 | model.4 (BIC) | 12 | 0.9473 | 0.9437 | 15693 | 16871 | 17840 | 0.957 |  |
 | model.5 (tuned BIC) | 13 | 0.9384 | 0.9351 | 17282 | 18159 | 18164 | 0.953 |  |
 
-#### Model Comparison:
+Comparing the models:
 
 - **Predictive Power**: The AIC model (model.3) and the enhanced model
   (model.2) have the highest adjusted R-squared values, indicating they
@@ -5394,9 +5387,9 @@ models we created.
   better predictive power. The tuned BIC model (model.5), while simple,
   sacrifices too much predictive power and is not a strong contender.
 
-The AIC-based model (model.3) appears to be the best model. It
-successfully balances the trade-off between model complexity and
-predictive performance. It achieves a high adjusted R-squared and low
-RMSE on unseen data without the unnecessary complexity of the enhanced
-model. This makes it a reliable and efficient model for predicting
-housing prices in the Ames dataset.
+In conclusion, the AIC-based model (model.3) appears to be the best
+model. It successfully balances the trade-off between model complexity
+and predictive performance. It achieves a high adjusted R-squared and
+low RMSE on unseen data without the unnecessary complexity of the
+enhanced model. This makes it a reliable and efficient model for
+predicting housing prices in the Ames dataset.

@@ -13,17 +13,11 @@ We begin with a compilation of home search criteria and recommendations shared b
 
 Next, we perform exploratory data analysis (EDA). We identify missing data and outliers, and decide how to handle them. We analyze the variables, their correlations, and the needs for creating new variables and variable transformations.
 
-Using the training set, We create a linear model and then use AIC and BIC to compare different sets of predictors.
-
-
-
-using AIC/BIC criteria select a set of predictors and build several types of models. After choosing a model, we evaluate its overfit on the test set and tune it. Finally, we use the model to identify under- or over-valued properties in the validation set.
+Using the training set, We create a linear model and then use AIC and BIC to compare different sets of predictors. After choosing a model, we evaluate its overfit on the test set and tune it. Finally, we use the model to identify under- or over-valued properties in the validation set.
 
 ## 2. What real estate agents say
   
-As it turns out, all real estate agents basically say the same things. The real estate mantra is ‘location, location, location’, so let's start with location.
-
-### Location
+As it turns out, all real estate agents basically say the same things. The real estate mantra is "location, location, location", so let's start with location.
 
 **Zoning:** The choice of a type of area depends on the type of lifestyle you wish to live and of course, on your budget. Agricultural, industrial and commercial areas are cheaper than residential areas. Low density residential areas are generally the most expensive ones.
 
@@ -114,7 +108,9 @@ cat(sprintf("Data points in training set: %d\n", nrow(ames_train)))
 ```
 
 
-## 5. Available variables and interpretation
+## 5. Variables and interpretation
+
+### 5.1 Available variables
 
 We have 81 variables in total, not counting the Parcel ID that is not useful to our study.
 
@@ -164,7 +160,7 @@ The variable *area* in the dataset is not in the codebook, and the variable *Gr 
 
 We note that the available variables closely match our compilation of home search criteria and recommendations from real estate agents.
 
-#### Neighborhoods
+### 5.2 Neighborhoods
 
 Besides their names, no information about neighborhoods is readily available in the data set.
 
@@ -185,7 +181,7 @@ The name of a neighborhood may be enough information for real estate agents who 
 
 In the EDA part, we will use this variable to try to get some understanding about the type of area each neighborhood name implies.
 
-#### Type and style of dwelling
+### 5.3 Type and style of dwelling
 
 There are 3 variables that describe the type and style of dwelling: *MS.SubClass*, *Bldg.Type* and *House.Style*.
 
@@ -235,7 +231,7 @@ These variables can take the following values:
 *MS.SubClass* mixes information about stories, floorplan, style, age, finished/unfinished areas, and planned development. It significantly overlaps with *Bldg.Type* and *House.Style* and the information it adds on top of them is not always easy to understand.
 
 
-#### Proximity to some conditions
+### 5.4 Proximity to some conditions
 
 *Condition.1* and *Condition.2* provide information that is local to the property.
 
@@ -255,7 +251,7 @@ These variables can take the following values:
 
 *Condition.1* and *Condition.2* certainly provide valuable information. But the problem with these variables is that it is not obvious to understand what is good and what is bad. For example, is it good to be "Within 200' of East-West Railroad" because there is a train station nearby, or is it bad because noise levels are high?
 
-#### Basements
+### 5.5 Basements
 
 There is an impressive amount of information about basements: 9 variables in total.
 
@@ -1100,11 +1096,7 @@ An example of undervalued property is #168. The predicted price is $364,895 and 
 
 ## 14. Conclusion
 
-The table below summarizes the statistics we collected for all the models we created.
-
-
-<table style="text-align:center;">
-  <tr>
+The table below summarizes the statistics we collected for the five models we created.
 
 | Model | Predictors | R^2 | Adjusted R^2 | Training set RMSE | Test set RMSE | Validation set RMSE | Coverage probability |
 |-------|-------------|----|--------|--------|-------|-------|-------|-------|
@@ -1115,7 +1107,7 @@ The table below summarizes the statistics we collected for all the models we cre
 | model.5 (tuned BIC) | 13 | 0.9384 | 0.9351 | 17282 | 18159 | 18164 | 0.953 |
 
 
-#### Model Comparison:
+Comparing the models:
 
 - **Predictive Power**: The AIC model (model.3) and the enhanced model (model.2) have the highest adjusted R-squared values, indicating they explain the most variance in the data. However, the enhanced model's high number of predictors (25) makes it complex and prone to overfitting. The AIC model achieves a nearly identical adjusted R-squared (0.946 vs. 0.9458) with significantly fewer predictors (16), making it a more parsimonious and robust choice.
 
@@ -1123,5 +1115,5 @@ The table below summarizes the statistics we collected for all the models we cre
 
 - **Simplicity and Interpretability**: With only 16 predictors, the AIC model (model.3) is much more interpretable than the complex enhanced model. It is more complex than the BIC model but offers slightly better predictive power. The tuned BIC model (model.5), while simple, sacrifices too much predictive power and is not a strong contender.
 
-The AIC-based model (model.3) appears to be the best model. It successfully balances the trade-off between model complexity and predictive performance. It achieves a high adjusted R-squared and low RMSE on unseen data without the unnecessary complexity of the enhanced model. This makes it a reliable and efficient model for predicting housing prices in the Ames dataset.
+In conclusion, the AIC-based model (model.3) appears to be the best model. It successfully balances the trade-off between model complexity and predictive performance. It achieves a high adjusted R-squared and low RMSE on unseen data without the unnecessary complexity of the enhanced model. This makes it a reliable and efficient model for predicting housing prices in the Ames dataset.
 
