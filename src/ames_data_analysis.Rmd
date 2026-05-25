@@ -725,7 +725,7 @@ model.3 <- stepAIC(model.2, k = 2, trace = FALSE)
 summary(model.3)
 ```
 
-The AIC-based model (AIC model, for short) has 16 predictors:
+The AIC model has 16 predictors:
 
 ```{r}
 form <- formula(model.3)

@@ -4759,7 +4759,7 @@ summary(model.3)
     ## Multiple R-squared:  0.9503, Adjusted R-squared:  0.946 
     ## F-statistic: 220.7 on 66 and 762 DF,  p-value: < 2.2e-16
 
-The AIC-based model (AIC model, for short) has 16 predictors:
+The AIC model has 16 predictors:
 
 ``` r
 form <- formula(model.3)
