@@ -2379,7 +2379,7 @@ ggplot(ames_train, aes(x = Neighborhood, y = Price)) +
     coord_flip()
 ```
 
-![](ames_data_analysis_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 The boxplots confirm what we already found out when we computed the
 zoning and price statistics of each neighborhood.
@@ -4115,7 +4115,7 @@ ggplot(ames_train, aes(x = Neighborhood, y = Age)) +
     coord_flip()
 ```
 
-![](ames_data_analysis_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 The boxplots show in a visual manner what we already found out when we
 computed the age statistics.
@@ -4139,7 +4139,7 @@ ggplot(ames_train, aes(x = Price)) +
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](ames_data_analysis_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 The distribution of Price is right skewed with a long tail towards
 higher prices.
@@ -4154,7 +4154,7 @@ ggplot(ames_train, aes(x = log(Price))) +
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](ames_data_analysis_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 The distribution of log transformed Price is much more symmetrical.
 Let’s draw a Q-Q plot to check how close it is to a normal distribution.
@@ -4165,7 +4165,7 @@ ggplot(ames_train, aes(sample = log(Price))) + stat_qq() + stat_qq_line(color="r
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](ames_data_analysis_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 The distribution of log transformed *Price* is fairly close to normal. A
 normal distribution is preferable to a skewed distribution, so we will
@@ -4207,7 +4207,7 @@ correlations <- ames_train %>% dplyr::select(Area, Lot.Area, Age)
 ggpairs(correlations)
 ```
 
-![](ames_data_analysis_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 The plot shows some correlation between *Area* and *Lot.Area* with a
 positive correlation coefficient of 0.23. House area and lot area
@@ -4249,7 +4249,7 @@ ggplot(ames_train, aes(x = Area, y = log(Price))) + geom_point() +
     ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
     ## generated.
 
-![](ames_data_analysis_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 The plot shows an obvious positive linear correlation between *Area* and
 *log(Price)*. *Price* and *Area* increase and decrease together.
@@ -4265,7 +4265,7 @@ ggplot(ames_train, aes(x = Lot.Area, y = log(Price))) + geom_point() +
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](ames_data_analysis_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 The plot suggests a positive linear correlation between *Lot.Area* and
 *log(Price*). But instead of being close to vertical, the fitting line
@@ -4289,7 +4289,7 @@ ggplot(ames_train, aes(x = Lot.Area, y = log(Price))) + geom_point() +
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](ames_data_analysis_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 The plot looks better but the angle of the fitting line is still too
 low.
@@ -4314,7 +4314,7 @@ Let’s draw a scattered plot using *log transformed Lot.Area* instead of
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](ames_data_analysis_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 The plot shows a fair positive linear correlation between
 *log(Lot.Area*) and log(*Price*). There are no obvious outliers.
@@ -4331,7 +4331,7 @@ ggplot(ames_train, aes(x = Age, y = log(Price))) + geom_point() +
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](ames_data_analysis_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 The plot shows a fair linear correlation between *Age* and *log(Price)*.
 Prices go down with age, which confirms what we suspected in the EDA
@@ -4937,7 +4937,7 @@ ggplot(residuals, aes(sample = resid)) + stat_qq() + stat_qq_line(color="red") +
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](ames_data_analysis_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 The normal distribution of residuals condition is fairly met. There are
 some outliers at the lower and upper tails.
@@ -4952,7 +4952,7 @@ ggplot(residuals, aes(x = fitted, y = resid)) + geom_point() +
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](ames_data_analysis_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
 Residuals are randomly distributed in a band centered at 0 (no fan
 shape), so the constant variability of residuals condition is met.
@@ -5340,7 +5340,7 @@ ggplot(actual_vs_predicted, aes(x = predicted, y = actual)) + geom_point() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](ames_data_analysis_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 An example of overvalued property is \#641. The predicted price is
 \$350,719 and the actual price is \$441,929 (20% higher).
