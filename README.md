@@ -1,5 +1,5 @@
-
-# Ames Housing Data Analysis
+Ames Housing Data Analysis
+================
 
 *Copyright (c) 2025 Guy Dupenloup - Licensed under the MIT License (see
 LICENSE file for details)*
@@ -2379,7 +2379,7 @@ ggplot(ames_train, aes(x = Neighborhood, y = Price)) +
     coord_flip()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 The boxplots confirm what we already found out when we computed the
 zoning and price statistics of each neighborhood.
@@ -4115,7 +4115,7 @@ ggplot(ames_train, aes(x = Neighborhood, y = Age)) +
     coord_flip()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 The boxplots show in a visual manner what we already found out when we
 computed the age statistics.
@@ -4139,7 +4139,7 @@ ggplot(ames_train, aes(x = Price)) +
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 The distribution of Price is right skewed with a long tail towards
 higher prices.
@@ -4154,7 +4154,7 @@ ggplot(ames_train, aes(x = log(Price))) +
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 The distribution of log transformed Price is much more symmetrical.
 Let’s draw a Q-Q plot to check how close it is to a normal distribution.
@@ -4165,7 +4165,7 @@ ggplot(ames_train, aes(sample = log(Price))) + stat_qq() + stat_qq_line(color="r
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 The distribution of log transformed *Price* is fairly close to normal. A
 normal distribution is preferable to a skewed distribution, so we will
@@ -4207,7 +4207,7 @@ correlations <- ames_train %>% dplyr::select(Area, Lot.Area, Age)
 ggpairs(correlations)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 The plot shows some correlation between *Area* and *Lot.Area* with a
 positive correlation coefficient of 0.23. House area and lot area
@@ -4249,7 +4249,7 @@ ggplot(ames_train, aes(x = Area, y = log(Price))) + geom_point() +
     ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
     ## generated.
 
-![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 The plot shows an obvious positive linear correlation between *Area* and
 *log(Price)*. *Price* and *Area* increase and decrease together.
@@ -4265,7 +4265,7 @@ ggplot(ames_train, aes(x = Lot.Area, y = log(Price))) + geom_point() +
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 The plot suggests a positive linear correlation between *Lot.Area* and
 *log(Price*). But instead of being close to vertical, the fitting line
@@ -4289,7 +4289,7 @@ ggplot(ames_train, aes(x = Lot.Area, y = log(Price))) + geom_point() +
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 The plot looks better but the angle of the fitting line is still too
 low.
@@ -4314,7 +4314,7 @@ Let’s draw a scattered plot using *log transformed Lot.Area* instead of
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 The plot shows a fair positive linear correlation between
 *log(Lot.Area*) and log(*Price*). There are no obvious outliers.
@@ -4331,7 +4331,7 @@ ggplot(ames_train, aes(x = Age, y = log(Price))) + geom_point() +
     theme(plot.title=element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 The plot shows a fair linear correlation between *Age* and *log(Price)*.
 Prices go down with age, which confirms what we suspected in the EDA
@@ -4937,7 +4937,7 @@ ggplot(residuals, aes(sample = resid)) + stat_qq() + stat_qq_line(color="red") +
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 The normal distribution of residuals condition is fairly met. There are
 some outliers at the lower and upper tails.
@@ -4952,7 +4952,7 @@ ggplot(residuals, aes(x = fitted, y = resid)) + geom_point() +
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
 Residuals are randomly distributed in a band centered at 0 (no fan
 shape), so the constant variability of residuals condition is met.
@@ -5340,7 +5340,7 @@ ggplot(actual_vs_predicted, aes(x = predicted, y = actual)) + geom_point() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+![](ames_data_analysis_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 An example of overvalued property is \#641. The predicted price is
 \$350,719 and the actual price is \$441,929 (20% higher).
@@ -5361,36 +5361,8 @@ models we created.
 | model.4 (BIC) | 12 | 0.9473 | 0.9437 | 15693 | 16871 | 17840 | 0.957 |  |
 | model.5 (tuned BIC) | 13 | 0.9384 | 0.9351 | 17282 | 18159 | 18164 | 0.953 |  |
 
-Comparing the models:
-
-- **Predictive Power**: The AIC model (model.3) and the enhanced model
-  (model.2) have the highest adjusted R-squared values, indicating they
-  explain the most variance in the data. However, the enhanced model’s
-  high number of predictors (25) makes it complex and prone to
-  overfitting. The AIC model achieves a nearly identical adjusted
-  R-squared (0.946 vs. 0.9458) with significantly fewer predictors (16),
-  making it a more parsimonious and robust choice.
-
-- **Generalization (Overfitting)**: Comparing the RMSE across the
-  datasets is crucial for evaluating overfitting. The BIC model
-  (model.4) shows the smallest difference between its training and test
-  RMSE, suggesting it generalizes the best, but this comes at the cost
-  of a slightly lower R-squared. The AIC model (model.3) also shows a
-  small, acceptable gap between its training and test RMSE. In contrast,
-  the initial and tuned models have higher RMSE values overall,
-  indicating they are less accurate. The enhanced model’s larger jump in
-  RMSE from training to testing hints at more overfitting compared to
-  the AIC and BIC models.
-
-- **Simplicity and Interpretability**: With only 16 predictors, the AIC
-  model (model.3) is much more interpretable than the complex enhanced
-  model. It is more complex than the BIC model but offers slightly
-  better predictive power. The tuned BIC model (model.5), while simple,
-  sacrifices too much predictive power and is not a strong contender.
-
-In conclusion, the AIC-based model (model.3) appears to be the best
-model. It successfully balances the trade-off between model complexity
-and predictive performance. It achieves a high adjusted R-squared and
-low RMSE on unseen data without the unnecessary complexity of the
-enhanced model. This makes it a reliable and efficient model for
-predicting housing prices in the Ames dataset.
+Model.3 (AIC) stands out as the best overall. It achieves a high
+adjusted R^2 (0.946) and low test RMSE, with a reasonable number of
+predictors (16). Model.2, while slightly better in R^2, is more complex
+and shows signs of overfitting. Model.4 (BIC) is simpler and generalizes
+well, but with a small drop in performance.

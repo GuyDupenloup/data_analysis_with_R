@@ -1106,14 +1106,5 @@ The table below summarizes the statistics we collected for the five models we cr
 | model.4 (BIC)       | 12 | 0.9473 | 0.9437 | 15693 | 16871 | 17840 | 0.957 |
 | model.5 (tuned BIC) | 13 | 0.9384 | 0.9351 | 17282 | 18159 | 18164 | 0.953 |
 
-
-Comparing the models:
-
-- **Predictive Power**: The AIC model (model.3) and the enhanced model (model.2) have the highest adjusted R-squared values, indicating they explain the most variance in the data. However, the enhanced model's high number of predictors (25) makes it complex and prone to overfitting. The AIC model achieves a nearly identical adjusted R-squared (0.946 vs. 0.9458) with significantly fewer predictors (16), making it a more parsimonious and robust choice.
-
-- **Generalization (Overfitting)**: Comparing the RMSE across the datasets is crucial for evaluating overfitting. The BIC model (model.4) shows the smallest difference between its training and test RMSE, suggesting it generalizes the best, but this comes at the cost of a slightly lower R-squared. The AIC model (model.3) also shows a small, acceptable gap between its training and test RMSE. In contrast, the initial and tuned models have higher RMSE values overall, indicating they are less accurate. The enhanced model's larger jump in RMSE from training to testing hints at more overfitting compared to the AIC and BIC models.
-
-- **Simplicity and Interpretability**: With only 16 predictors, the AIC model (model.3) is much more interpretable than the complex enhanced model. It is more complex than the BIC model but offers slightly better predictive power. The tuned BIC model (model.5), while simple, sacrifices too much predictive power and is not a strong contender.
-
-In conclusion, the AIC-based model (model.3) appears to be the best model. It successfully balances the trade-off between model complexity and predictive performance. It achieves a high adjusted R-squared and low RMSE on unseen data without the unnecessary complexity of the enhanced model. This makes it a reliable and efficient model for predicting housing prices in the Ames dataset.
+Model.3 (AIC) stands out as the best overall. It achieves a high adjusted R^2 (0.946) and low test RMSE, with a reasonable number of predictors (16). Model.2, while slightly better in R^2, is more complex and shows signs of overfitting. Model.4 (BIC) is simpler and generalizes well, but with a small drop in performance.
 
