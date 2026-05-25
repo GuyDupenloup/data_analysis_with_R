@@ -1122,6 +1122,6 @@ The table below summarizes the statistics we collected for the five models we cr
 | model.4 (BIC)       | 12 | 0.9473 | 0.9437 | 15693 | 16871 | 17840 | 0.957 |
 | model.5 (tuned BIC) | 13 | 0.9384 | 0.9351 | 17282 | 18159 | 18164 | 0.953 |
 
-Model.3 (AIC) stands out as the best overall. It achieves a high adjusted R^2 (0.946) and low test RMSE, with a reasonable number of predictors (16). Model.2, while slightly better in R^2, is more complex and shows signs of overfitting. Model.4 (BIC) is simpler and generalizes well, but with a small drop in performance.
+Model.3 (AIC) stands out as the best overall. It achieves a high adjusted R^2 (0.946) and low test RMSE, with a reasonable number of predictors (16). Model.2, while slightly better in R^2, is more complex and shows signs of overfitting. Model.4 (BIC) has only 12 predictors and generalizes well, but with a small drop in performance.
 
 

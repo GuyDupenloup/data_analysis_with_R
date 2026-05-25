@@ -5386,5 +5386,5 @@ models we created.
 Model.3 (AIC) stands out as the best overall. It achieves a high
 adjusted R^2 (0.946) and low test RMSE, with a reasonable number of
 predictors (16). Model.2, while slightly better in R^2, is more complex
-and shows signs of overfitting. Model.4 (BIC) is simpler and generalizes
+and shows signs of overfitting. Model.4 (BIC) has only 12 predictors and generalizes
 well, but with a small drop in performance.
