@@ -725,7 +725,13 @@ model.3 <- stepAIC(model.2, k = 2, trace = FALSE)
 summary(model.3)
 ```
 
-The AIC-based model (AIC model, for short) has 16 predictors.
+The AIC-based model (AIC model, for short) has 16 predictors:
+
+```{r}
+form <- formula(model.3)
+predictors <- all.vars(form)[-1]  # Remove the response variable (log(Price))
+predictors
+```
 
 The adjusted-R^2 is 0.946. The enhanced model had an adjusted-R^2 of 0.9458, so this is approximately the same value.
 
@@ -739,7 +745,17 @@ model.4 <- stepAIC(model.2, k = log(nrow(ames_train)), trace = FALSE)
 summary(model.4)
 ```
 
-The AIC model that we created previously had an adjusted-R^2 is 0.946. The BIC model has an adjusted R^2 of 0.9437.
+The AIC model that we created previously had an adjusted-R^2 is 0.946.
+
+The BIC model has an adjusted R^2 of 0.9437, and has 12 predictors:
+
+
+```{r}
+form <- formula(model.4)
+predictors <- all.vars(form)[-1]  # Remove the response variable (log(Price))
+predictors
+```
+
 
 With its more stringent penalty on model complexity, the BIC model selected a more parsimonious set of predictors (12 compared to the AIC model's 16). While its adjusted R^2 is slightly lower, this is the expected trade-off for a simpler model. The choice between the two depends on whether the goal is to maximize predictive power (favoring the AIC model) or to favor a simpler, more interpretable model (favoring the BIC model).
 
@@ -1107,4 +1123,5 @@ The table below summarizes the statistics we collected for the five models we cr
 | model.5 (tuned BIC) | 13 | 0.9384 | 0.9351 | 17282 | 18159 | 18164 | 0.953 |
 
 Model.3 (AIC) stands out as the best overall. It achieves a high adjusted R^2 (0.946) and low test RMSE, with a reasonable number of predictors (16). Model.2, while slightly better in R^2, is more complex and shows signs of overfitting. Model.4 (BIC) is simpler and generalizes well, but with a small drop in performance.
+
 

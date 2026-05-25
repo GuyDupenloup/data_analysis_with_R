@@ -4759,7 +4759,18 @@ summary(model.3)
     ## Multiple R-squared:  0.9503, Adjusted R-squared:  0.946 
     ## F-statistic: 220.7 on 66 and 762 DF,  p-value: < 2.2e-16
 
-The AIC-based model (AIC model, for short) has 16 predictors.
+The AIC-based model (AIC model, for short) has 16 predictors:
+
+``` r
+form <- formula(model.3)
+predictors <- all.vars(form)[-1]  # Remove the response variable (log(Price))
+predictors
+```
+
+    ##  [1] "Area"           "Lot.Area"       "Age"            "Neighborhood"  
+    ##  [5] "Bldg.Type"      "Garage.Area"    "Overall.Qual"   "Overall.Cond"  
+    ##  [9] "Exter.Qual"     "Total.Bsmt.SF"  "BsmtFin.SF.1"   "BsmtFin.SF.2"  
+    ## [13] "Bsmt.Full.Bath" "Heating"        "Heating.QC"     "Central.Air"
 
 The adjusted-R^2 is 0.946. The enhanced model had an adjusted-R^2 of
 0.9458, so this is approximately the same value.
@@ -4849,7 +4860,18 @@ summary(model.4)
     ## F-statistic: 257.8 on 54 and 774 DF,  p-value: < 2.2e-16
 
 The AIC model that we created previously had an adjusted-R^2 is 0.946.
-The BIC model has an adjusted R^2 of 0.9437.
+
+The BIC model has an adjusted R^2 of 0.9437, and has 12 predictors:
+
+``` r
+form <- formula(model.4)
+predictors <- all.vars(form)[-1]  # Remove the response variable (log(Price))
+predictors
+```
+
+    ##  [1] "Area"           "Lot.Area"       "Age"            "Neighborhood"  
+    ##  [5] "Bldg.Type"      "Garage.Cars"    "Overall.Qual"   "Overall.Cond"  
+    ##  [9] "Total.Bsmt.SF"  "BsmtFin.SF.1"   "Bsmt.Full.Bath" "Central.Air"
 
 With its more stringent penalty on model complexity, the BIC model
 selected a more parsimonious set of predictors (12 compared to the AIC
@@ -4937,7 +4959,7 @@ ggplot(residuals, aes(sample = resid)) + stat_qq() + stat_qq_line(color="red") +
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 The normal distribution of residuals condition is fairly met. There are
 some outliers at the lower and upper tails.
@@ -4952,7 +4974,7 @@ ggplot(residuals, aes(x = fitted, y = resid)) + geom_point() +
     theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 Residuals are randomly distributed in a band centered at 0 (no fan
 shape), so the constant variability of residuals condition is met.
@@ -5340,7 +5362,7 @@ ggplot(actual_vs_predicted, aes(x = predicted, y = actual)) + geom_point() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
 
 An example of overvalued property is \#641. The predicted price is
 \$350,719 and the actual price is \$441,929 (20% higher).
